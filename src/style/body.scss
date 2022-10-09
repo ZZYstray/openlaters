@@ -1,0 +1,35 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {margin:0;padding:0;} 
+table {border-collapse:collapse;border-spacing:0;} 
+fieldset,img {border:0} 
+address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal} 
+ol,ul {list-style:none} 
+caption,th {text-align:left} 
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal} 
+q:before,q:after {content:''} 
+abbr,acronym { border:0}
+::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px !important; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px !important;
+  background: #ffffff !important;
+  cursor: pointer !important;
+}
+
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px !important;
+  box-shadow: inset 0 0 5px rgba(240, 240, 240, 0.5) !important;
+  background: rgba(190, 190, 190, 0.8) !important;
+  cursor: pointer !important;
+}
+
+::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px rgba(240, 240, 240, 0.5) !important;
+  border-radius: 0 !important;
+  background: rgba(240, 240, 240, 0.5) !important;
+  cursor: pointer !important;
+}
+.ml {
+  margin-left: 15px;
+}
