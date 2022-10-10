@@ -79,11 +79,10 @@ import { Map, View, Feature, Overlay } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { Cluster, Vector as VectorSource } from "ol/source";
 import * as olProj from "ol/proj";
-import { Point, Polygon, Circle as gCircle } from "ol/geom";
+import { Point, Polygon, Circle as gCircle, MultiLineString} from "ol/geom";
 import { Style, Fill, Stroke, Text, Circle as sCircle } from "ol/style";
 import { boundingExtent } from "ol/extent";
 import { mapGetters } from "vuex";
-
 import { getMap, setMap } from "@/utils/webStorage";
 import mapType from "@/utils/openlayers/maptype";
 
@@ -330,6 +329,16 @@ export default {
           path: path,
         };
       }
+      if (area.match("MultiLineString")) {
+        const path = [];
+        point.forEach((item) => {
+          path.push(olProj.fromLonLat(item.split(" ")));
+        });
+        return {
+          type: "MultiLineString",
+          path: path,
+        };
+      }
     },
     // 绘制围栏
     setFenceSource(area) {
@@ -341,6 +350,10 @@ export default {
         }
         case "Polygon": {
           feature = new Feature(new Polygon([area.path]));
+          break;
+        }
+        case "MultiLineString": {
+          feature = new Feature(new MultiLineString([area.path]));
           break;
         }
         default:

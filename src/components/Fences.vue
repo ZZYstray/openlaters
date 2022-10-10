@@ -177,6 +177,7 @@ export default {
         Polygon: () => {
           //获取坐标点
           let points = geo.getCoordinates();
+          console.log(points);
           this.polygonPath = points[0];
         },
       };
@@ -201,6 +202,7 @@ export default {
             return;
           }
           const path = this.polygonPath;
+          console.log(path);
           const pathArr = [];
           path.forEach((item) => {
             const p = olProj.toLonLat(item);
@@ -237,6 +239,7 @@ export default {
         return;
       }
       const area = this.formatFenceData();
+      console.log(area);
       if (area) {
         let data = {
           name: this.name,
