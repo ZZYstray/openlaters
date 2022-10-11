@@ -104,6 +104,8 @@ export default {
   mounted() {},
   methods: {
     ...mapActions(["addFences"]),
+    ...mapActions(["addPathArr"]),
+    
     initMap() {
       const _maplist = mapType;
       const _tileLayer = new TileLayer({
@@ -221,11 +223,19 @@ export default {
             return;
           }
           const path = this.MultiLineStringPath;
+
           const pathArr = [];
+          const pathArr1 = [];
+
           path.forEach((item) => {
             const p = olProj.toLonLat(item);
+            pathArr1.push(p);
+
             pathArr.push(`${p[0]} ${p[1]}`);
           });
+          // 将绘制好的路径坐标添加到vuex里面
+          this.addPathArr(pathArr1)
+          console.log(pathArr1);
           return `MultiLineString (${pathArr.join(", ")})`;
         },
       };

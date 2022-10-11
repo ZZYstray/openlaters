@@ -67,9 +67,8 @@
     <!-- 全屏控件 -->
     <div id="Full-Screen">全屏</div>
 
-    <div id="Overview-Map">鸟瞰</div>
+    <div id="Overview-Map">缩略图</div>
     <div id="Scale-Line">比例尺</div>
-    <div id="Zoom-Slider">缩放</div>
     <div id="Zoom-ToExtent">放大</div>
 
 
@@ -157,7 +156,7 @@ export default {
             }), //  鼠标位置控件
             new OverviewMap({
               target: document.getElementById('Overview-Map'),     // 容器id
-            }), // 鸟瞰图控件
+            }), // 缩略图控件
             new ScaleLine({
               target: document.getElementById('Scale-Line'),     // 容器id
             }),// 比例尺控件
@@ -180,6 +179,8 @@ export default {
         [108.580321, 34.076162],
         [110.458983, 35.071209],
         [105.734862, 35.49272],
+        [120.200062, 30.30272],
+
       ];
     },
     setMarkerSource() {

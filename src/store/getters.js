@@ -8,5 +8,7 @@
  */
 const getters = {
   fences: (state) => state.fence.fences,
+  pathArr: (state) => state.fence.pathArr,
+
 };
 export default getters;

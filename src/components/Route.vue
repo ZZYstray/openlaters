@@ -62,6 +62,9 @@ import { getVectorContext } from "ol/render";
 import { getMap } from "@/utils/webStorage";
 import mapType from "@/utils/openlayers/maptype";
 import { getRotation, getCenterPoint } from "@/utils/openlayers/route";
+
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     visible: {
@@ -121,6 +124,9 @@ export default {
       }),
     };
   },
+  computed: {
+    ...mapGetters(["pathArr"]),
+  },
   watch: {
     visible: {
       handler: function (value) {
@@ -165,13 +171,18 @@ export default {
       this.getList();
     },
     getList() {
+      // 如果没有画轨迹，就展示死的数据
       let _data = [
-        [108.945951, 34.465262],
-        [109.04724, 34.262504],
-        [108.580321, 34.076162],
-        [110.458983, 35.071209],
-        [105.734862, 35.49272],
+          [108.945951, 34.465262],
+          [109.04724, 34.262504],
+          [108.580321, 34.076162],
+          [110.458983, 35.071209],
+          [105.734862, 35.49272],
       ];
+      // 画了轨迹就展示轨迹数据 
+      if (this.pathArr.length !== 0) {
+        _data = JSON.parse(JSON.stringify(this.pathArr[0]))
+      }
       this.routes = _data.map((item) => {
         return olProj.fromLonLat(item);
       });
