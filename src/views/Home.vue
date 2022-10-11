@@ -62,8 +62,17 @@
         ></el-option>
       </el-select>
     </div>
-    <!-- 比例尺 -->
-    <div class="map-scale"></div>
+    <!-- 鼠标经纬度坐标 -->
+    <div id="mouse-position">经纬度坐标</div>
+    <!-- 全屏控件 -->
+    <div id="Full-Screen">全屏</div>
+
+    <div id="Overview-Map">鸟瞰</div>
+    <div id="Scale-Line">比例尺</div>
+    <div id="Zoom-Slider">缩放</div>
+    <div id="Zoom-ToExtent">放大</div>
+
+
     <component
       v-if="operateDialogVisible"
       :is="currentComponent"
@@ -85,6 +94,8 @@ import { boundingExtent } from "ol/extent";
 import { mapGetters } from "vuex";
 import { getMap, setMap } from "@/utils/webStorage";
 import mapType from "@/utils/openlayers/maptype";
+
+import {defaults,FullScreen,MousePosition,OverviewMap,ScaleLine,ZoomSlider,ZoomToExtent} from 'ol/control';
 
 export default {
   name: "Home",
@@ -132,9 +143,31 @@ export default {
         // 配置地图窗口
         view: new View({
           center: olProj.fromLonLat([108.945951, 34.465262]),
-          zoom: 4,
+          zoom: 6,
         }),
-        controls: [],
+        controls: defaults().extend([
+            new FullScreen({
+              target: document.getElementById('Full-Screen'),     // 容器id
+            }),// 全屏控件
+            new MousePosition({
+              projection: 'EPSG:4326',                               // 投影
+              className: 'custom-mouse-position',                    // 文字样式
+              target: document.getElementById('mouse-position'),     // 容器id
+              undefinedHTML: '&nbsp'                                 // 未定义坐标的标记
+            }), //  鼠标位置控件
+            new OverviewMap({
+              target: document.getElementById('Overview-Map'),     // 容器id
+            }), // 鸟瞰图控件
+            new ScaleLine({
+              target: document.getElementById('Scale-Line'),     // 容器id
+            }),// 比例尺控件
+            new ZoomSlider({
+              target: document.getElementById('Zoom-Slider'),     // 容器id
+            }), // 缩放滚动条控件
+            new ZoomToExtent({
+              target: document.getElementById('Zoom-ToExtent'),     // 容器id
+            })// 放大到设定区域控件
+        ]),
       });
       this.setMarker();
       this.addOverlay();
@@ -442,9 +475,62 @@ export default {
   right: 20px;
 }
 
-.map-scale {
+#mouse-position {
   position: absolute;
   left: 20px;
-  bottom: 7px;
+  bottom: 20px;
+  background-color: #fff;
+}
+#Full-Screen {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  ::v-deep .ol-full-screen-false {
+    border-radius: 10px;
+    background-color: #00aaff;
+    font-size: 20px;
+  }
+}
+
+#Overview-Map {
+  position: absolute;
+  top: 20px;
+  right: 100px;
+
+}
+#Scale-Line {
+  position: absolute;
+  left: 20px;
+  bottom: 100px;
+  background-color: #fff;
+
+}
+#Zoom-Slider {
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+#Zoom-ToExtent {
+  position: absolute;
+  top: 0;
+  left: 100px;
+}
+::v-deep .ol-zoom {
+  position: absolute;
+  top: 40px;
+  right: 200px;
+  
+  .ol-zoom-in {
+    width: 30px;
+    height: 30px;
+    background-color: #00aaff;
+    border-radius: 10px;
+  }
+  .ol-zoom-out{
+    width: 30px;
+    height: 30px;
+    background-color: #00aaff;
+    border-radius: 10px;
+  }
 }
 </style>
